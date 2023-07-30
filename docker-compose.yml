@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    volumes:
+      - .:/rabbitmq-test
+    container_name: app-rabbit-test
+    command: python3 app.py
+    depends_on:
+      - broker
+  broker:
+    image: rabbitmq
+    volumes:
+      - .:/rabbitmq-test
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    container_name: rabbitmq-container
